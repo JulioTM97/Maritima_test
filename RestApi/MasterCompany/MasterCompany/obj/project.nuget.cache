@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "sVnYI/4qOyYHgrW5sYGcTfdH+FQJlsj1Et4dSzcGCFDLUxK42C4QCpNWH1oWpfPB1GB00Xwjnkbj9l4F9BotsQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Julio\\Desktop\\Maritima\\Maritima_test\\RestApi\\MasterCompany\\MasterCompany\\MasterCompany.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Julio\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
