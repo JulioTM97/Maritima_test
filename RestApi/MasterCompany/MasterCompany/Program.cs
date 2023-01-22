@@ -1,3 +1,6 @@
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+
 namespace MasterCompany
 {
     public class Program
@@ -11,11 +14,16 @@ namespace MasterCompany
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(c => {
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                c.IgnoreObsoleteActions();
-                c.IgnoreObsoleteProperties();
-                c.CustomSchemaIds(type => type.FullName);
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "MasterCompany API",
+                    Description = "An ASP.NET Core Web API for managing employees using json files",
+                });
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
 
             var app = builder.Build();

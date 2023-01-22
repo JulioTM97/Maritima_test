@@ -16,7 +16,10 @@ namespace MasterCompany.Controllers
         static string InactiveEmployees = "./Sources/InactiveEmployees.json";
         public static List<Employee> employees = new();
 
-        //Get all Employees (No Filters)
+        /// <summary>
+        /// Get all Employees without any filter (includes repeat employees).
+        /// </summary>
+        /// <returns>Returns the list of employee (repeated included).</returns>
         [HttpGet]
         public async Task<List<Employee>> GetAllEmployees()
         {
@@ -24,7 +27,10 @@ namespace MasterCompany.Controllers
             return employees;
         }
 
-        //Get all Employees filtered
+        /// <summary>
+        /// Get all Employees without repeat.
+        /// </summary>
+        /// <returns>Returns the list of employee without repeat.</returns>
         [HttpGet("Filtered")]
         public async Task<List<Employee>> GetEmployeesNoDuplicated()
         {
@@ -33,7 +39,10 @@ namespace MasterCompany.Controllers
             return FilteredEmployees;
         }
 
-        //Get all Increase and filtered employees 
+        /// <summary>
+        /// Get all Employees with increase of salary and without repeat.
+        /// </summary>
+        /// <returns>Returns the list of employee with increase of salary and without repeat.</returns>
         [HttpGet("Increased")]
         public async Task<List<Employee>> GetEmployeesWithIncrease()
         {
@@ -45,7 +54,10 @@ namespace MasterCompany.Controllers
             return increasedEmployees;
         }
 
-        //Show the porcent of male and female employees
+        /// <summary>
+        /// //Show the porcent of male and female employees.
+        /// </summary>
+        /// <returns>Returns a string with the porcent of male and female employees.</returns>
         [HttpGet("Sex_Statistics")]
         [Produces("application/json")]
         public async Task<string> GetSexStatistics()
@@ -61,7 +73,12 @@ namespace MasterCompany.Controllers
             return "[{\"males\":" + (Math.Round((males / total), 2) * 100).ToString() + ",\"females\":" + (Math.Round((females / total), 2) * 100).ToString() + "}]";
         }
 
-        //Get Employees in Range, filter by min and max Salary
+        /// <summary>
+        /// Get Employees in Range, filter by min and max Salary.
+        /// </summary>
+        /// <param name="minSalary">Minimal salary to select.</param>
+        /// <param name="maxSalary">Maximun salary to select.</param>
+        /// <returns>Returns the list of employee in the range.</returns>
         [HttpGet("{minSalary}/{maxSalary}")]
         public async Task<List<Employee>> GetEmployeesInRange(int minSalary, int maxSalary)
         {
@@ -72,7 +89,10 @@ namespace MasterCompany.Controllers
             return employeesInRange.ToList();
         }
 
-        //Add a new employee
+        /// <summary>
+        /// Add a new employee.
+        /// </summary>
+        /// <returns>Returns the added employee.</returns>
         [HttpPost]
         public async Task<Employee> PostEmployee(Employee employee)
         {
@@ -82,7 +102,11 @@ namespace MasterCompany.Controllers
             return employee;
         }
 
-        //Delete an employee
+        /// <summary>
+        /// Delete an employee from the active list.
+        /// </summary>
+        /// <param name="document">Number of document of the employee.</param>
+        /// <returns>Returns the deleted employee.</returns>
         [HttpDelete("{document}")]
         public async Task<Employee> DeleteEmployee(string document)
         {
@@ -100,7 +124,11 @@ namespace MasterCompany.Controllers
             return deletedEmployee;
         }
 
-        //Removes the employee from the active list and adds them to the inactive list.
+        /// <summary>
+        /// Removes the employee from the active list and adds them to the inactive list.
+        /// </summary>
+        /// <param name="document">Number of document of the employee.</param>
+        /// <returns>Returns the disabled employee.</returns>
         [HttpDelete("Disable/{document}")]
         public async Task<Employee> DisableEmployee(string document)
         {

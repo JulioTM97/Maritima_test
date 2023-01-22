@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MasterCompany</name>
+    </assembly>
+    <members>
+        <member name="M:MasterCompany.Controllers.EmployeeController.GetAllEmployees">
+            <summary>
+            Get all Employees without any filter (includes repeat employees).
+            </summary>
+            <returns>Returns the list of employee (repeated included).</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.GetEmployeesNoDuplicated">
+            <summary>
+            Get all Employees without repeat.
+            </summary>
+            <returns>Returns the list of employee without repeat.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.GetEmployeesWithIncrease">
+            <summary>
+            Get all Employees with increase of salary and without repeat.
+            </summary>
+            <returns>Returns the list of employee with increase of salary and without repeat.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.GetSexStatistics">
+            <summary>
+            //Show the porcent of male and female employees.
+            </summary>
+            <returns>Returns a string with the porcent of male and female employees.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.GetEmployeesInRange(System.Int32,System.Int32)">
+            <summary>
+            Get Employees in Range, filter by min and max Salary.
+            </summary>
+            <param name="minSalary">Minimal salary to select.</param>
+            <param name="maxSalary">Maximun salary to select.</param>
+            <returns>Returns the list of employee in the range.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.PostEmployee(MasterCompany.Models.Employee)">
+            <summary>
+            Add a new employee.
+            </summary>
+            <returns>Returns the added employee.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.DeleteEmployee(System.String)">
+            <summary>
+            Delete an employee from the active list.
+            </summary>
+            <param name="document">Number of document of the employee.</param>
+            <returns>Returns the deleted employee.</returns>
+        </member>
+        <member name="M:MasterCompany.Controllers.EmployeeController.DisableEmployee(System.String)">
+            <summary>
+            Removes the employee from the active list and adds them to the inactive list.
+            </summary>
+            <param name="document">Number of document of the employee.</param>
+            <returns>Returns the disabled employee.</returns>
+        </member>
+    </members>
+</doc>

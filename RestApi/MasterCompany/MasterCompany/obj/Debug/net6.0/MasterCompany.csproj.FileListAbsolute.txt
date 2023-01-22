@@ -32,3 +32,5 @@ C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompan
 C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompany\obj\Debug\net6.0\ref\MasterCompany.dll
 C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompany\bin\Debug\net6.0\Sources\ActiveEmployees.json
 C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompany\bin\Debug\net6.0\Sources\InactiveEmployees.json
+C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompany\bin\Debug\net6.0\MasterCompany.xml
+C:\Users\Julio\Desktop\Maritima\Maritima_test\RestApi\MasterCompany\MasterCompany\obj\Debug\net6.0\MasterCompany.xml
