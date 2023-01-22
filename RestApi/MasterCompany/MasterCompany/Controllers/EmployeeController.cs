@@ -14,13 +14,13 @@ namespace MasterCompany.Controllers
     {
         static string ActiveEmployees = "./Sources/ActiveEmployees.json";
         static string InactiveEmployees = "./Sources/InactiveEmployees.json";
-        static List<Employee> employees = new();
+        public static List<Employee> employees = new();
 
         //Get all Employees (No Filters)
         [HttpGet]
         public async Task<List<Employee>> GetAllEmployees()
         {
-            await LoadJsonFile(ActiveEmployees);
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
             return employees;
         }
 
@@ -28,8 +28,8 @@ namespace MasterCompany.Controllers
         [HttpGet("Filtered")]
         public async Task<List<Employee>> GetEmployeesNoDuplicated()
         {
-            await LoadJsonFile(ActiveEmployees);
-            List<Employee> FilteredEmployees = this.FilterDuplicatedEmployees();
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
+            List<Employee> FilteredEmployees = EmployeesFunctions.FilterDuplicatedEmployees();
             return FilteredEmployees;
         }
 
@@ -37,8 +37,8 @@ namespace MasterCompany.Controllers
         [HttpGet("Increased")]
         public async Task<List<Employee>> GetEmployeesWithIncrease()
         {
-            await LoadJsonFile(ActiveEmployees);
-            List<Employee> increasedEmployees = this.FilterDuplicatedEmployees();
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
+            List<Employee> increasedEmployees = EmployeesFunctions.FilterDuplicatedEmployees();
             foreach (Employee employee in increasedEmployees)
                 if (employee.Salary > 100000) employee.Salary *= 1.25;
                 else employee.Salary *= 1.30;
@@ -52,35 +52,20 @@ namespace MasterCompany.Controllers
         {
             double males = 0;
             double females = 0;
-            await LoadJsonFile(ActiveEmployees);
-            List<Employee> FilteredEmployees = this.FilterDuplicatedEmployees();
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
+            List<Employee> FilteredEmployees = EmployeesFunctions.FilterDuplicatedEmployees();
             foreach (Employee employee in FilteredEmployees)
-                if (employee.Gender =="M")males++;
+                if (employee.Gender == "M") males++;
                 else females++;
             double total = males + females;
-            return "[{\"males\":"+(Math.Round((males / total),2)  *100).ToString() + ",\"females\":"+ (Math.Round((females / total),2) * 100).ToString() + "}]";
-        }
-
-        //Function to filter the employees, returns a list of employees where they are not repeated.
-        public List<Employee> FilterDuplicatedEmployees() {
-            List<Employee> aux = new();
-            foreach (Employee emp1 in employees)
-            {
-                bool isRepeat = false;
-                foreach (Employee emp2 in aux)
-                {
-                    if (emp1.Name == emp2.Name && emp1.LastName == emp2.LastName) isRepeat = true;
-                }
-                if (!isRepeat) aux.Add(emp1);
-            }
-            return aux;
+            return "[{\"males\":" + (Math.Round((males / total), 2) * 100).ToString() + ",\"females\":" + (Math.Round((females / total), 2) * 100).ToString() + "}]";
         }
 
         //Get Employees in Range, filter by min and max Salary
         [HttpGet("{minSalary}/{maxSalary}")]
         public async Task<List<Employee>> GetEmployeesInRange(int minSalary, int maxSalary)
         {
-            await LoadJsonFile(ActiveEmployees);
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
             IEnumerable<Employee> employeesInRange = from employee in employees
                                                      where employee.Salary >= minSalary && employee.Salary <= maxSalary
                                                      select employee;
@@ -91,9 +76,9 @@ namespace MasterCompany.Controllers
         [HttpPost]
         public async Task<Employee> PostEmployee(Employee employee)
         {
-            await LoadJsonFile(ActiveEmployees);
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
             employees.Add(employee);
-            await SaveJsonFile(ActiveEmployees);
+            await JsonFileHelper.SaveJsonFile(ActiveEmployees);
             return employee;
         }
 
@@ -101,7 +86,7 @@ namespace MasterCompany.Controllers
         [HttpDelete("{document}")]
         public async Task<Employee> DeleteEmployee(string document)
         {
-            await LoadJsonFile(ActiveEmployees);
+            await JsonFileHelper.LoadJsonFile(ActiveEmployees);
             Employee deletedEmployee = new Employee();
             for (int i = 0; i < employees.Count; i++)
             {
@@ -111,7 +96,7 @@ namespace MasterCompany.Controllers
                     employees.RemoveAt(i);
                 }
             }
-            await SaveJsonFile(ActiveEmployees);
+            await JsonFileHelper.SaveJsonFile(ActiveEmployees);
             return deletedEmployee;
         }
 
@@ -120,26 +105,10 @@ namespace MasterCompany.Controllers
         public async Task<Employee> DisableEmployee(string document)
         {
             Employee disabledEmployee = await DeleteEmployee(document);
-            await LoadJsonFile(InactiveEmployees);
+            await JsonFileHelper.LoadJsonFile(InactiveEmployees);
             employees.Add(disabledEmployee);
-            await SaveJsonFile(InactiveEmployees);
+            await JsonFileHelper.SaveJsonFile(InactiveEmployees);
             return disabledEmployee;
         }
-        #region LoadAndSave
-        public async Task<int> LoadJsonFile(string file)
-        {
-            await using FileStream openStream = System.IO.File.OpenRead(file);
-            employees = await JsonSerializer.DeserializeAsync<List<Employee>>(openStream);
-            return 0;
-        }
-
-        public async Task<int> SaveJsonFile(string file)
-        {
-            using FileStream createStream = System.IO.File.Create(file);
-            await JsonSerializer.SerializeAsync(createStream, employees);
-            await createStream.DisposeAsync();
-            return 0;
-        }
-        #endregion
     }
 }
